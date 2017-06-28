@@ -7,5 +7,5 @@ $ yarn
 ```
 
 ```bash
-$ node agency-service.js
+$ yarn start
 ```

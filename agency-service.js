@@ -7,7 +7,24 @@ const agencies = [
 ]
 
 responder.on('index', ({ type }, cb) => cb(agencies))
+
 responder.on('create', ({ type, agency }, cb) => {
   agencies.push(agency)
   cb(agency)
+})
+
+responder.on('update', ({ type, agency }, cb) => {
+  const agencyIndex = agencies.findIndex(a => a.id === agency.id)
+
+  if (agencyIndex) {
+    agencies[agencyIndex] = agency
+    cb(agency)
+  } else {
+    cb({})
+  }
+})
+
+responder.on('delete', ({ type, agencyIndex }, cb) => {
+  agencies.splice(agencyIndex, 1)
+  cb({})
 })
