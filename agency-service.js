@@ -1,5 +1,6 @@
 const cote = require('cote')
 const responder = new cote.Responder({ name: 'agency responder' })
+const requester = new cote.Requester({ name: 'log requester' })
 
 // DB mocking
 const agencies = [
@@ -9,8 +10,15 @@ const agencies = [
 responder.on('index', ({ type }, cb) => cb(agencies))
 
 responder.on('create', ({ type, agency }, cb) => {
-  agencies.push(agency)
-  cb(agency)
+  const req = {
+    type: 'create',
+    log: { id: null, event: 'test', createdAt: Date.now() }
+  }
+
+  requester.send(req, (res) => {
+    agencies.push(agency)
+    cb(agency)
+  })
 })
 
 responder.on('update', ({ type, agency }, cb) => {
