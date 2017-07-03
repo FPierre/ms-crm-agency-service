@@ -4,8 +4,13 @@ const responder = new cote.Responder({ name: 'agency responder', key: 'agency' }
 const requester = new cote.Requester({ name: 'log requester', key: 'log' })
 
 // DB mocking
+const activities = {
+  0: 'undertaker',
+  1: 'cemetery'
+}
+
 const agencies = [
-  { id: 1, userId: 1, name: 'Agency 1', lat: 1.11, lng: 2.00, commercialStatus: 'client' }
+  { id: 1, authorId: 1, responsibleId: 1, name: 'Agency 1', activities: [activities[0]], lat: 1.11, lng: 2.00, phone: '', commercialStatus: 'client' }
 ]
 
 responder.on('index', ({ type }, cb) => cb(agencies))
