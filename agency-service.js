@@ -29,7 +29,7 @@ responder.on('update', ({ type, agency }, cb) => {
     } else {
       cb({})
     }
-  }
+  })
 })
 
 responder.on('delete', ({ type, agencyIndex }, cb) => {
