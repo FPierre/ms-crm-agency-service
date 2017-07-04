@@ -15,6 +15,18 @@ const agencies = [
 
 responder.on('index', ({ type }, cb) => cb(agencies))
 
+responder.on('show', ({ type, id }, cb) => {
+  const agency = agencies.find(a => a.id === id)
+
+  return new Promise((resolve, reject) => {
+    if (agency) {
+      resolve(agency)
+    } else {
+      reject('rejected')
+    }
+  })
+})
+
 responder.on('create', ({ type, agency }, cb) => {
   // Log entry
   requester.send({ type: 'create', event: 'create' }, res => {
