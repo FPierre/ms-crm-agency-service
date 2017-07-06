@@ -7,6 +7,8 @@
     "start": "node agency-service.js"
   },
   "dependencies": {
-    "cote": "^0.14.1"
+    "cote": "^0.14.1",
+    "sequelize": "^4.2.1",
+    "sqlite3": "^3.1.8"
   }
 }
