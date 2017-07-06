@@ -1,5 +1,7 @@
 const cote = require('cote')
 
+const Agency = require('./agency')
+
 const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
 const requester = new cote.Requester({ name: 'log requester', key: 'log' })
 
@@ -16,22 +18,12 @@ const commercialStatus: {
   3: 'oldCustomer'
 }
 
-const agencies = [
-  { id: 1, authorId: 1, responsibleId: 1, name: 'Agency 1', activities: [activities[0]], lat: 1.11, lng: 2.00, phone: '', commercialStatus: commercialStatus[1] }
-]
-
-responder.on('index', ({ type }, cb) => cb(agencies))
+responder.on('index', ({ type }, cb) => {
+  return Agency.findAll()
+}
 
 responder.on('show', ({ type, id }, cb) => {
-  const agency = agencies.find(a => a.id === id)
-
-  return new Promise((resolve, reject) => {
-    if (agency) {
-      resolve(agency)
-    } else {
-      reject('rejected')
-    }
-  })
+  return Agency.findById(id)
 })
 
 responder.on('create', ({ type, agency }, cb) => {
