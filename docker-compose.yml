@@ -1,0 +1,18 @@
+version: '2'
+services:
+  base:
+    build: .
+    image: fpierre/ms-crm-agency-service
+
+  db:
+    extends: base
+    command: node init-db.js
+    depends_on:
+      - postgres
+
+  postgres:
+    image: sameersbn/postgresql:9.6-1
+    environment:
+      - DB_USER=cote
+      - DB_PASS=ohgath2ig8eoP8
+      - DB_NAME=cote

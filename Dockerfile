@@ -1,6 +1,6 @@
 FROM node:8
 
-WORKDIR /
+WORKDIR /src
 ADD package.json .
 RUN yarn install
 
