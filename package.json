@@ -1,10 +1,10 @@
 {
   "name": "ms-crm-agency-service",
   "version": "0.0.1",
-  "main": "agency-service.js",
+  "main": "src/agency-service.js",
   "license": "MIT",
   "scripts": {
-    "start": "node agency-service.js"
+    "start": "node ./src/agency-service.js"
   },
   "dependencies": {
     "cote": "^0.14.1",
