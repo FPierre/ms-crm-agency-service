@@ -4,7 +4,8 @@
   "main": "src/agency-service.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/agency-service.js"
+    "start": "node ./src/agency-service.js",
+    "build": "docker build -t ms-crm-agency-service ."
   },
   "dependencies": {
     "cote": "^0.14.1",
