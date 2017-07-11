@@ -6,8 +6,10 @@ const responder = new cote.Responder({ name: 'agency responder', key: 'agency' }
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
 
 responder.on('index', ({ type }, cb) => {
+  console.log('index')
+  Agency.find({}).exec().then(a => console.log(a))
   return Agency.find({}).exec()
-}
+})
 
 responder.on('show', ({ type, id }, cb) => {
   return Agency.findById(id).exec()

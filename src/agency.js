@@ -7,13 +7,15 @@ const agencySchema = new Schema({
   name: {
     type: String,
     required: true,
+    maxlength: 255,
     trim: true
   },
   phone: {
     type: String,
+    maxlength: 12,
     trim: true
   },
-  commercialStatus:
+  commercialStatus: {
     type: String,
     required: true,
     enum: ['inactive', 'customer', 'prospect', 'old customer'],
@@ -27,6 +29,7 @@ const agencySchema = new Schema({
   street: {
     type: String,
     required: true,
+    maxlength: 255,
     trim: true
   },
   lat: {
@@ -46,15 +49,15 @@ const agencySchema = new Schema({
     default: Date.now
   },
   _cityId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     required: true
   },
   _authorId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     required: true
   },
   _responsibleId: {
-    type: Schema.Types.ObjectId,
+    type: Number,
     required: true
   }
 })
