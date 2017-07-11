@@ -8,8 +8,6 @@
     "build": "docker build -t ms-crm-agency-service ."
   },
   "dependencies": {
-    "cote": "^0.14.1",
-    "pg": "^6.4.0",
-    "sequelize": "^4.2.1"
+    "cote": "^0.14.1"
   }
 }
