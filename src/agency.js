@@ -1,48 +1,64 @@
-const Sequelize = require('sequelize')
-const sequelize = require('./db-connection')
+const mongoose = require('mongoose')
 
-UUIDV4
+const Schema = mongoose.Schema
+mongoose.Promise = global.Promise
 
-const Agency = sequelize.define('agency', {
+const agencySchema = new Schema({
   name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  commercialStatus: {
-    type:  Sequelize.ENUM,
-    values: ['inactive', 'customer', 'prospect', 'old customer'],
-    allowNull: false,
-    defaultValue: 'inactive'
-  },
-  activities: {
-
-  },
-  lat_lng: {
-    type: Sequelize.GEOGRAPHY,
-    allowNull: false
+    type: String,
+    required: true,
+    trim: true
   },
   phone: {
-    type: Sequelize.STRING
+    type: String,
+    trim: true
   },
-  author_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+  commercialStatus:
+    type: String,
+    required: true,
+    enum: ['inactive', 'customer', 'prospect', 'old customer'],
+    default: 'inactive'
   },
-  responsible_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+  activities: {
+    type: String,
+    required: true,
+    enum: ['frenchFriesStand', 'cottonCandyStand']
+  },
+  street: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  lat: {
+    type: Number,
+    min: 0
+  },
+  lng: {
+    type: Number,
+    min: 0
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
+  _cityId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  _authorId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  _responsibleId: {
+    type: Schema.Types.ObjectId,
+    required: true
   }
 })
 
-/*
-// force: true will drop the table if it already exists
-User.sync({ force: true }).then(() => {
-  // Table created
-  return User.create({
-    firstName: 'John',
-    lastName: 'Hancock'
-  })
-})
-*/
+const Agency = mongoose.model('Agency', agencySchema)
 
 module.exports = Agency
