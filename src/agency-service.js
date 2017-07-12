@@ -1,16 +1,21 @@
 const cote = require('cote')
-
+const { connect } = require('../db/connection')
+const { init } = require('../db/init')
 const Agency = require('./agency')
+
+connect()
+  // .then(() => init())
+  // .catch(err => console.log(err))
 
 const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
 
-responder.on('index', ({ type }, cb) => {
-  return Agency.find({}).exec()
+responder.on('index', () => {
+  return Agency.find({}, ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt'])
 })
 
-responder.on('show', ({ type, id }, cb) => {
-  return Agency.findById(id).exec()
+responder.on('show', ({ id }) => {
+  return Agency.findById(id)
 })
 
 responder.on('create', ({ type, agency }, cb) => {

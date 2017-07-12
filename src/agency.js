@@ -48,15 +48,15 @@ const agencySchema = new Schema({
     default: Date.now
   },
   _cityId: {
-    type: Number,
+    type: String,
     required: true
   },
   _authorId: {
-    type: Number,
+    type: String,
     required: true
   },
   _responsibleId: {
-    type: Number,
+    type: String,
     required: true
   }
 })
