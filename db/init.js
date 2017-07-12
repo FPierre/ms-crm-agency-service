@@ -9,9 +9,9 @@ exports.init = () => {
     lng: 2.330772,
     commercialStatus: 'customer',
     activities: 'frenchFriesStand',
-    _cityId: 1,
-    _authorId: 1,
-    _responsibleId: 1,
+    _cityId: "5963e30a57e53e5ef6857439",
+    _authorId: "5963e30a57e53e5ef6857439",
+    _responsibleId: "5963e30a57e53e5ef6857439",
   })
 
   agencyOne.save(err => {
