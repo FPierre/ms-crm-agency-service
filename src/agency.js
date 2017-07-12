@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize')
 const sequelize = require('./db-connection')
 
-UUIDV4
-
 const Agency = sequelize.define('agency', {
   name: {
     type: Sequelize.STRING,
@@ -15,9 +13,9 @@ const Agency = sequelize.define('agency', {
     defaultValue: 'inactive'
   },
   activities: {
-
+    type: Sequelize.ARRAY(Sequelize.TEXT)
   },
-  lat_lng: {
+  latLng: {
     type: Sequelize.GEOGRAPHY,
     allowNull: false
   },
