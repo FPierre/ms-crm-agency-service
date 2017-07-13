@@ -2,6 +2,7 @@ const cote = require('cote')
 const { connect } = require('../db/connection')
 const { init } = require('../db/init')
 const Agency = require('./agency')
+const algolia = require('../api/algolia')
 
 connect()
 
@@ -16,18 +17,27 @@ responder.on('show', ({ id }) => {
   return Agency.findById(id)
 })
 
-responder.on('create', ({ type, agency }, cb) => {
-  logEntry({}, agency, 'create')
+responder.on('create', ({ agency, user }) => {
+  // logEntry(user, agency, 'create')
+
+
+  algolia.addObject(agency, (err, content) => {
+    if (err) {
+      console.log(err)
+    }
+  })
+
+  return new Agency(agency).save()
 })
 
-responder.on('update', ({ type, agency }, cb) => {
+responder.on('update', ({ agency }) => {
   Agency.findById(agency.id).then(agency => {
     logEntry({}, agency, 'update')
     cb(agency)
   })
 })
 
-responder.on('delete', ({ type, agencyIndex }, cb) => {
+responder.on('delete', ({ agencyId }) => {
 
 })
 
