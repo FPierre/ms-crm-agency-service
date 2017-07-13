@@ -3,5 +3,7 @@ module.exports = {
   dbSecret: '',
   dbUrl: '',
   dbPort: '',
-  dbName: ''
+  dbName: '',
+  algoliaAppId: '',
+  algoliaApiKey: ''
 }
