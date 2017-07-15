@@ -1,9 +1,5 @@
 const cote = require('cote')
-const dotenv = require('dotenv')
 const { connect } = require('../db/connection')
-
-dotenv.config()
-
 const { init } = require('../db/init')
 const { algoliaClient, algoliaSerialize } = require('../api/algolia')
 const Agency = require('./agency')
