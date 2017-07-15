@@ -29,6 +29,24 @@ const agencySchema = new mongoose.Schema({
     maxlength: 255,
     trim: true
   },
+  country: {
+    type: String,
+    required: true,
+    maxlength: 255,
+    trim: true
+  },
+  city: {
+    type: String,
+    required: true,
+    maxlength: 255,
+    trim: true
+  },
+  zipCode: {
+    type: Number,
+    required: true,
+    maxlength: 5,
+    trim: true
+  },
   lat: {
     type: Number,
     min: 0
@@ -36,6 +54,11 @@ const agencySchema = new mongoose.Schema({
   lng: {
     type: Number,
     min: 0
+  },
+  website: {
+    type: String,
+    maxlength: 255,
+    trim: true
   },
   createdAt: {
     type: Date,
@@ -45,7 +68,7 @@ const agencySchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  _cityId: {
+  _algoliaPlaceId: {
     type: String,
     required: true
   },
