@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 
-const mongodbUrl = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB_NAME}`
+dotenv.config()
 
-exports.connect = () => mongoose.connect(mongodbUrl)
+const dbUrl = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`
+
+exports.connect = () => mongoose.connect(dbUrl)
