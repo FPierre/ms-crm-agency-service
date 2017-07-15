@@ -1,9 +1,8 @@
 const algoliasearch = require('algoliasearch')
 const moment = require('moment')
-const env = require('../env/dev.env.js')
 
-const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey)
-const index = client.initIndex(env.algoliaIndex)
+const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
+const index = client.initIndex(ALGOLIA_INDEX)
 
 function serialize(agency) {
   return {

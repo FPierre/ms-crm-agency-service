@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-const env = require('../env/dev.env.js')
 
-const mongodbUrl = `mongodb://${env.dbUser}:${env.dbSecret}@${env.dbUrl}:${env.dbPort}/${env.dbName}`
+const mongodbUrl = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB_NAME}`
 
 exports.connect = () => mongoose.connect(mongodbUrl)
