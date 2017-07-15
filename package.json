@@ -9,6 +9,7 @@
   "dependencies": {
     "algoliasearch": "^3.24.0",
     "cote": "^0.14.1",
+    "dotenv": "^4.0.0",
     "moment": "^2.18.1",
     "mongoose": "^4.11.1"
   }
