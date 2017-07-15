@@ -2,9 +2,11 @@ const cote = require('cote')
 const { connect } = require('../db/connection')
 const { init } = require('../db/init')
 const Agency = require('./agency')
-const algolia = require('../api/algolia')
+const { algoliaClient, algoliaSerialize } = require('../api/algolia')
 
 connect()
+  // .then(() => init())
+  // .catch(err => console.log(err))
 
 const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
@@ -20,8 +22,7 @@ responder.on('show', ({ id }) => {
 responder.on('create', ({ agency, user }) => {
   // logEntry(user, agency, 'create')
 
-
-  algolia.addObject(agency, (err, content) => {
+  algoliaClient.addObject(algoliaSerialize(agency), (err, content) => {
     if (err) {
       console.log(err)
     }
