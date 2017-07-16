@@ -32,10 +32,7 @@ responder.on('create', ({ agency, user }) => {
 })
 
 responder.on('update', ({ agency }) => {
-  Agency.findById(agency.id).then(agency => {
-    logEntry({}, agency, 'update')
-    cb(agency)
-  })
+  return Agency.findOneAndUpdate({ _id: agency._id }, { $set: agency })
 })
 
 responder.on('delete', ({ agencyId }) => {

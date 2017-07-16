@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const diffHistory = require('mongoose-diff-history/diffHistory')
 
 const agencySchema = new mongoose.Schema({
   name: {
@@ -81,6 +82,8 @@ const agencySchema = new mongoose.Schema({
     required: true
   }
 })
+
+agencySchema.plugin(diffHistory.plugin)
 
 const Agency = mongoose.model('Agency', agencySchema)
 

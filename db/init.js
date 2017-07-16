@@ -13,7 +13,7 @@ exports.init = () => {
     lng: 2.4061,
     website: 'www.foiredutrone.com',
     commercialStatus: 'customer',
-    activities: 'cottonCandyStand',
+    activities: 'frenchFriesStand',
     _algoliaPlaceId: "722737_264482297",
     _authorId: "5963e30a57e53e5ef6857439",
     _responsibleId: "5963e30a57e53e5ef6857439",
