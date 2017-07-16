@@ -1,4 +1,5 @@
 const cote = require('cote')
+const diffHistory = require('mongoose-diff-history/diffHistory')
 const { connect } = require('../db/connection')
 const { init } = require('../db/init')
 const { algoliaClient, algoliaSerialize } = require('../api/algolia')
@@ -35,8 +36,12 @@ responder.on('update', ({ agency }) => {
   return Agency.findOneAndUpdate({ _id: agency._id }, { $set: agency })
 })
 
-responder.on('delete', ({ agencyId }) => {
+responder.on('delete', ({ id }) => {
 
+})
+
+responder.on('history', ({ id }) => {
+  return diffHistory.getHistories('Angecy', id)
 })
 
 function logEntry (user, object, event) {
