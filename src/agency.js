@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const diffHistory = require('mongoose-diff-history/diffHistory')
+// https://docs.mongodb.com/manual/reference/method/cursor.skip/
+const mongoosePaginate = require('mongoose-paginate')
 
 const agencySchema = new mongoose.Schema({
   name: {
@@ -84,6 +86,7 @@ const agencySchema = new mongoose.Schema({
 })
 
 agencySchema.plugin(diffHistory.plugin)
+agencySchema.plugin(mongoosePaginate)
 
 const Agency = mongoose.model('Agency', agencySchema)
 

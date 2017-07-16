@@ -12,8 +12,10 @@ connect()
 const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
 
-responder.on('index', () => {
-  return Agency.find({}, ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt'])
+responder.on('index', ({ page, limit }) => {
+  const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
+
+  return Agency.paginate({}, { select, page, limit })
 })
 
 responder.on('show', ({ id }) => {
@@ -33,7 +35,7 @@ responder.on('create', ({ agency, user }) => {
 })
 
 responder.on('update', ({ agency }) => {
-  return Agency.findOneAndUpdate({ _id: agency._id }, { $set: agency })
+
 })
 
 responder.on('delete', ({ id }) => {
@@ -41,7 +43,7 @@ responder.on('delete', ({ id }) => {
 })
 
 responder.on('history', ({ id }) => {
-  return diffHistory.getHistories('Angecy', id)
+  return diffHistory.getHistories('Agency', id)
 })
 
 function logEntry (user, object, event) {
