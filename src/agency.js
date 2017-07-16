@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+// https://docs.mongodb.com/manual/reference/method/cursor.skip/
+const mongoosePaginate = require('mongoose-paginate')
 
 const agencySchema = new mongoose.Schema({
   name: {
@@ -81,6 +83,8 @@ const agencySchema = new mongoose.Schema({
     required: true
   }
 })
+
+agencySchema.plugin(mongoosePaginate)
 
 const Agency = mongoose.model('Agency', agencySchema)
 

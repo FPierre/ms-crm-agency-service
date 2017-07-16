@@ -11,8 +11,10 @@ connect()
 const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
 
-responder.on('index', () => {
-  return Agency.find({}, ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt'])
+responder.on('index', ({ page, limit }) => {
+  const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
+
+  return Agency.paginate({}, { select, page, limit })
 })
 
 responder.on('show', ({ id }) => {
@@ -32,13 +34,14 @@ responder.on('create', ({ agency, user }) => {
 })
 
 responder.on('update', ({ agency }) => {
-  Agency.findById(agency.id).then(agency => {
-    logEntry({}, agency, 'update')
-    cb(agency)
-  })
+  Agency.findById(agency.id)
+    .then(agency => {
+      logEntry({}, agency, 'update')
+      cb(agency)
+    })
 })
 
-responder.on('delete', ({ agencyId }) => {
+responder.on('delete', ({ id }) => {
 
 })
 
