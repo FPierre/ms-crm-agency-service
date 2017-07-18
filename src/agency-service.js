@@ -13,38 +13,28 @@ const io = require('socket.io').listen(app)
 
 app.listen(5554)
 
-const sockend = new cote.Sockend(io, {
-  name: 'agency sockend',
-  namespace: 'agencies'
-})
+const sockend = new cote.Sockend(io, { name: 'agency sockend', namespace: 'agencies' })
+const responder = new cote.Responder({ name: 'agency responder', namespace: 'agencies', respondsTo: ['index'] })
 
-const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
+// const responder = new cote.Responder({ name: 'agency responder', key: 'agency' })
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
 const userRequester = new cote.Requester({ name: 'user requester', key: 'user' })
 
-const testResponder = new cote.Responder({
-  name: 'agenc responder',
-  namespace: 'agencies',
-  respondsTo: ['index']
-})
-
-testResponder.on('index', ({ page, limit }, cb) => {
+responder.on('index', ({ page, limit }, cb) => {
   console.log('index')
   // cb({ docs: [{ _id: 1, name: 'A1', createdAt: Date.now, _responsibleId: 1 }], pages: 1, total: 1 })
 
   const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
 
-  const promises = []
-  const a = null
+  // const promises = []
 
-  Agency.paginate({}, { select, page: 1, limit: 1 })
+  return Agency.paginate({}, { select, page: 1, limit: 1 })
+    /*
     .then(paginatedAgencies => {
-      a = paginatedAgencies
-
-      for (const agency of paginatedAgencies.docs) {
+      for (let agency of paginatedAgencies.docs) {
         const promise = userRequester.send({ type: 'show', id: agency._responsibleId })
           .then(user => {
-            agency['responsible'] = user
+
           })
           .catch(err => console.log(err))
 
@@ -52,13 +42,12 @@ testResponder.on('index', ({ page, limit }, cb) => {
       }
 
       Promise.all(promises)
-        .then((a) => {
-         console.log(a)
-         console.log(paginatedAgencies)
-         cb(paginatedAgencies) })
+        .then((t) => {
+           cb(t)
+        })
         .catch(err => console.log(err))
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err))*/
 })
 
 /*
@@ -67,7 +56,6 @@ responder.on('index', ({ page, limit }) => {
 
   return Agency.paginate({}, { select, page, limit })
 })
-*/
 
 responder.on('show', ({ id }) => {
   return Agency.findById(id)
@@ -100,3 +88,4 @@ responder.on('delete', ({ id }) => {
 function logEntry (user, object, event) {
   return logRequester.send({ type: 'create', user, object, event })
 }
+*/
