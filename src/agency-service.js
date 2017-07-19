@@ -23,31 +23,49 @@ const userRequester = new cote.Requester({ name: 'user requester', key: 'user' }
 responder.on('index', ({ page }) => {
   const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
 
-  return Agency.paginate({}, { select, page, limit: 1 })
+  return Agency.paginate({}, { select, page, limit: 2 })
 
-  /*
+/*
+  const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
   const promises = []
 
-  Agency.paginate({}, { select, page: 1, limit: 1 })
+  Agency.paginate({}, { select, page: 1, limit: 2 })
     .then(paginatedAgencies => {
-      for (let agency of paginatedAgencies.docs) {
+      paginatedAgencies.docs.map(agency => {
         const promise = userRequester.send({ type: 'show', id: agency._responsibleId })
           .then(user => {
+            //console.log(user.firstName)
+            // agency['responsible'] = user
+            // agency.name = 'ok'
+            console.log(agency)
+            return user
 
+            // const r = agency
+            // r.responsible = user
+            // console.log(r)
+
+            // const a = Object.assign({}, agency, { responsible: user })
+            // console.log(a)
+            // return a
           })
           .catch(err => console.log(err))
 
         promises.push(promise)
-      }
+        // console.log(agency)
+        // return agency
+      })
 
       Promise.all(promises)
-        .then((t) => {
-           cb(t)
+        .then(u => {
+           console.log('all')
+           //console.log(u)
+           // console.log(paginatedAgencies)
+           return paginatedAgencies
         })
         .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
-  */
+*/
 })
 
 responder.on('show', ({ id }) => {
@@ -55,17 +73,21 @@ responder.on('show', ({ id }) => {
 })
 
 responder.on('create', ({ agency, user }) => {
-  // logEntry(user, agency, 'create')
+  return new Promise((resolve, reject) => {
+    new Agency(agency).save()
+      .then(agency => {
+        algoliaClient.addObject(algoliaSerialize(agency), (err, content) => {
+          if (err) {
+            reject(err)
+          }
 
-  /*
-  algoliaClient.addObject(algoliaSerialize(agency), (err, content) => {
-    if (err) {
-      console.log(err)
-    }
+          logEntry(user, agency, 'create')
+            .then(() => resolve(agency))
+            .catch(err => reject(err))
+        })
+      })
+      .catch(err => reject(err))
   })
-  */
-
-  return new Agency(agency).save()
 })
 
 responder.on('update', ({ agency }) => {
