@@ -4,7 +4,8 @@
   "main": "src/agency-service.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/agency-service.js"
+    "start": "node ./src/agency-service.js",
+    "test": "ava --verbose --fail-fast --timeout=5000 --concurrency 5"
   },
   "dependencies": {
     "algoliasearch": "^3.24.0",
@@ -13,5 +14,8 @@
     "moment": "^2.18.1",
     "mongoose": "^4.11.1",
     "mongoose-paginate": "^5.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0"
   }
 }
