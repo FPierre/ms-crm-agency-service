@@ -20,10 +20,11 @@ const responder = new cote.Responder({ name: 'agency responder', namespace: 'age
 const logRequester = new cote.Requester({ name: 'log requester', key: 'log' })
 const userRequester = new cote.Requester({ name: 'user requester', key: 'user' })
 
-responder.on('index', ({ page }) => {
+responder.on('index', ({ page, query }) => {
   const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
+  const filter = query ? { name: new RegExp(`^${query}`, 'i') } : {}
 
-  return Agency.paginate({}, { select, page, limit: 2 })
+  return Agency.paginate(filter, { select, page, limit: 2 })
 
 /*
   const select = ['name', 'activities', 'commercialStatus', '_responsibleId', 'createdAt']
