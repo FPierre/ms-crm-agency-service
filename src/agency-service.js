@@ -35,15 +35,18 @@ responder.on('create', ({ agency, user }) => {
 })
 
 responder.on('update', ({ agency }) => {
-
+  console.log('update', agency)
+  return Agency.findByIdAndUpdate(agency._id, agency)
 })
 
 responder.on('delete', ({ id }) => {
 
 })
 
-responder.on('history', ({ id }) => {
-  return diffHistory.getHistories('Agency', id)
+responder.on('history', ({ id }, cb) => {
+  diffHistory.getHistories('Agency', id, 'name', (err, h) => {
+    cb(h)
+  })
 })
 
 function logEntry (user, object, event) {
